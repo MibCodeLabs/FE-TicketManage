@@ -1,0 +1,19 @@
+@if(loading()){
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+  <div class="flex flex-col items-center gap-4 rounded-xl bg-white p-8 shadow-2xl">
+
+    <div class="h-12 w-12 animate-spin rounded-full border-4 border-gray-200 border-t-blue-600" role="status"
+      aria-label="Loading"></div>
+
+    <p class="text-sm font-medium text-gray-700">
+      Please wait...
+    </p>
+    @if(displayText()){
+    <p class="text-xs font-small text-gray-400">
+      {{displayText()}}
+    </p>
+    }
+  </div>
+</div>
+
+}

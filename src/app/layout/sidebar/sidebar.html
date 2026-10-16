@@ -1,25 +1,25 @@
-<aside class="flex h-[calc(100vh-4rem)] w-64 flex-col border-r border-slate-200 bg-white"> <!-- Navigation -->
+<aside
+  class="flex h-[calc(100vh-4rem)] w-64 flex-col
+         border-r border-slate-200 bg-white"
+>
   <nav class="flex-1 space-y-1 p-4">
-    <a routerLink="/home" routerLinkActive="bg-blue-50 text-blue-700" [routerLinkActiveOptions]="{ exact: true }" class="flex items-center rounded-lg px-3 py-2.5 text-sm font-medium
-         text-slate-600 transition
-         hover:bg-slate-50 hover:text-slate-900">
-      <span>Home</span>
-    </a>
+    @for (option of sideBarOptions(); track option[2]) {
+      <a
+        [routerLink]="option[2]"
+        routerLinkActive="bg-blue-50 text-blue-700"
+        [routerLinkActiveOptions]="{ exact: true }"
+        class="flex items-center gap-3 rounded-lg px-3 py-2.5
+               text-sm font-medium text-slate-600 transition
+               hover:bg-slate-50 hover:text-slate-900"
+      >
+        <img
+          [src]="option[1]"
+          [alt]="option[0] + ' icon'"
+          class="h-5 w-5 shrink-0 object-contain"
+        />
 
-    <a href="#" class="flex items-center rounded-lg px-3 py-2.5 text-sm font-medium
-         text-slate-600 transition
-         hover:bg-slate-50 hover:text-slate-900">
-      <span>Tickets</span>
-    </a>
-
-
-    <a href="#" class="flex items-center rounded-lg px-3 py-2.5 text-sm font-medium
-         text-slate-600 transition
-         hover:bg-slate-50 hover:text-slate-900">
-      <span>Messages</span>
-    </a>
-
-
+        <span>{{ option[0] }}</span>
+      </a>
+    }
   </nav>
-
 </aside>
