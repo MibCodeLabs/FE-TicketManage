@@ -1,5 +1,5 @@
 import { Injectable, signal } from '@angular/core';
-import { UserInfo } from '../models/login-response';
+import { UserInfo } from '../../models/login-response';
 
 @Injectable({
   providedIn: 'root',

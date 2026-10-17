@@ -16,7 +16,7 @@ export const sideBarOptions: Record<AccountType, readonly SidebarOption[]> = {
   [AccountType.Support]: [
     ...BASIC_OPTIONS,
     ['Todo', '/todo.svg', '/Todo'],
-    ['Complaints', '/complaints.svg', '/analytics'],
+    ['Complaints', '/complaints.svg', '/complaints'],
   ],
   [AccountType.QA]: [...BASIC_OPTIONS, ['Todo', '/todo.svg', '/Todo']],
   [AccountType.Developer]: [...BASIC_OPTIONS, ['Todo', '/todo.svg', '/Todo']],
@@ -24,5 +24,7 @@ export const sideBarOptions: Record<AccountType, readonly SidebarOption[]> = {
     ...BASIC_OPTIONS,
     ['Accounts Management', '/account-management.svg', '/accounts-management'],
     ['Data Management', '/data-management.svg', '/data-management'],
+    ['Complaints', '/complaints.svg', '/complaints'],
+    ['Analytics', '/analytics.svg', '/analytics']
   ],
 };

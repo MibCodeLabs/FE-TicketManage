@@ -1,0 +1,55 @@
+<div class="space-y-4">
+  <!-- Header -->
+  <div class="flex items-center justify-between">
+    <h2 class="text-lg font-semibold text-gray-900">Comments</h2>
+    <span class="text-sm text-gray-500">2 comments</span>
+  </div>
+
+  <!-- Comment List -->
+  <div class="space-y-4">
+    <div class="rounded-md border border-gray-200 p-4">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <p class="text-sm font-medium text-gray-900">Alex Morgan</p>
+        <p class="text-xs text-gray-500">Oct 15, 2026 · 10:30 AM</p>
+      </div>
+
+      <p class="mt-2 text-sm leading-6 text-gray-600">
+        I am looking into this issue and will check the application logs.
+      </p>
+    </div>
+
+    <div class="rounded-md border border-gray-200 p-4">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <p class="text-sm font-medium text-gray-900">John Doe</p>
+        <p class="text-xs text-gray-500">Oct 15, 2026 · 11:15 AM</p>
+      </div>
+
+      <p class="mt-2 text-sm leading-6 text-gray-600">
+        Thank you. The issue happens every time I open the settings page.
+      </p>
+    </div>
+  </div>
+
+  <!-- Add Comment -->
+  <div class="space-y-3 border-t border-gray-200 pt-4">
+    <label for="comment" class="block text-sm font-medium text-gray-700">
+      Add a comment
+    </label>
+
+    <textarea
+      id="comment"
+      rows="3"
+      placeholder="Write your comment..."
+      class="w-full resize-y rounded-md border border-gray-300 px-3 py-2 text-sm outline-none focus:border-gray-500 focus:ring-1 focus:ring-gray-500"
+    ></textarea>
+
+    <div class="flex justify-end">
+      <button
+        type="button"
+        class="rounded-md bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-700"
+      >
+        Post comment
+      </button>
+    </div>
+  </div>
+</div>

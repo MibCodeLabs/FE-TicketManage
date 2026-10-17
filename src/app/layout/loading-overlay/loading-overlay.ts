@@ -1,5 +1,5 @@
 import { Component, computed, signal } from '@angular/core';
-import { LoadingService } from '../../services/loading-service';
+import { LoadingService } from '../../core/services/loading-service';
 
 @Component({
   selector: 'app-loading-overlay',

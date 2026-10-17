@@ -13,8 +13,8 @@ import {
   take,
   throwError,
 } from 'rxjs';
+import { AuthService } from '../../features/auth/services/auth-service';
 
-import { AuthService } from '../services/auth-service';
 
 let isRefreshing = false;
 const refreshSubject = new BehaviorSubject<boolean | null>(null);
@@ -35,7 +35,6 @@ export const refreshInterceptor: HttpInterceptorFn = (req, next) => {
         return throwError(() => error);
       }
 
-      // Wait for the current refresh operation.
       if (isRefreshing) {
         return refreshSubject.pipe(
           filter((result): result is boolean => result !== null),

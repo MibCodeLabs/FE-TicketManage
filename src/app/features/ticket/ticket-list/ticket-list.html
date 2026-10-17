@@ -1,0 +1,130 @@
+<div class="space-y-4">
+  <div class="flex items-center justify-between">
+    <h1 class="text-xl font-semibold text-gray-900">Tickets</h1>
+
+    <button routerLink='/tickets/new'
+      class="rounded-md bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-700">
+      + New ticket
+    </button>
+  </div>
+
+  <div class="flex flex-col gap-3 sm:flex-row">
+    <input type="search" placeholder="Search tickets..."
+      class="w-full rounded-md border border-gray-300 px-3 py-2 text-sm outline-none focus:border-gray-500 sm:flex-1" />
+
+    <select class="rounded-md border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus:border-gray-500">
+      <option>All statuses</option>
+      <option>Unassigned</option>
+      <option>Open</option>
+      <option>In Progress</option>
+      <option>Resolved</option>
+      <option>Closed</option>
+    </select>
+  </div>
+
+  <div class="overflow-x-auto rounded-md border border-gray-200">
+    <table class="w-full text-left text-sm">
+      <thead class="border-b border-gray-200 bg-gray-50 text-gray-600">
+        <tr>
+          <th class="px-4 py-3 font-medium">Ticket</th>
+          <th class="px-4 py-3 font-medium">Status</th>
+          <th class="px-4 py-3 font-medium">Issued by</th>
+          <th class="px-4 py-3 font-medium">Assigned to</th>
+          <th class="px-4 py-3 font-medium">Created</th>
+        </tr>
+      </thead>
+
+      <tbody class="divide-y divide-gray-200">
+        <tr class="cursor-pointer hover:bg-gray-50" [routerLink]="['/tickets', 1042]">
+          <td class="px-4 py-3">
+            <p class="font-medium text-gray-900">#1042</p>
+            <p class="mt-1 max-w-xs truncate text-gray-500">
+              Unable to access account settings
+            </p>
+          </td>
+          <td class="px-4 py-3">
+            <span class="rounded-full bg-yellow-50 px-2 py-1 text-xs font-medium text-yellow-700">
+              Unassigned
+            </span>
+          </td>
+          <td class="px-4 py-3 text-gray-600">John Doe</td>
+          <td class="px-4 py-3 text-gray-600">—</td>
+          <td class="whitespace-nowrap px-4 py-3 text-gray-500">Oct 15, 2026</td>
+        </tr>
+
+        <tr class="cursor-pointer hover:bg-gray-50">
+          <td class="px-4 py-3">
+            <p class="font-medium text-gray-900">#1041</p>
+            <p class="mt-1 max-w-xs truncate text-gray-500">
+              Incorrect invoice amount
+            </p>
+          </td>
+          <td class="px-4 py-3">
+            <span class="rounded-full bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700">
+              In Progress
+            </span>
+          </td>
+          <td class="px-4 py-3 text-gray-600">Jane Smith</td>
+          <td class="px-4 py-3 text-gray-600">Alex Morgan</td>
+          <td class="whitespace-nowrap px-4 py-3 text-gray-500">Oct 14, 2026</td>
+        </tr>
+
+        <tr class="cursor-pointer hover:bg-gray-50">
+          <td class="px-4 py-3">
+            <p class="font-medium text-gray-900">#1040</p>
+            <p class="mt-1 max-w-xs truncate text-gray-500">
+              Request for access permissions
+            </p>
+          </td>
+          <td class="px-4 py-3">
+            <span class="rounded-full bg-green-50 px-2 py-1 text-xs font-medium text-green-700">
+              Resolved
+            </span>
+          </td>
+          <td class="px-4 py-3 text-gray-600">Sam Wilson</td>
+          <td class="px-4 py-3 text-gray-600">Alex Morgan</td>
+          <td class="whitespace-nowrap px-4 py-3 text-gray-500">Oct 12, 2026</td>
+        </tr>
+
+        <tr class="cursor-pointer hover:bg-gray-50">
+          <td class="px-4 py-3">
+            <p class="font-medium text-gray-900">#1039</p>
+            <p class="mt-1 max-w-xs truncate text-gray-500">
+              Application crashes during upload
+            </p>
+          </td>
+          <td class="px-4 py-3">
+            <span class="rounded-full bg-gray-100 px-2 py-1 text-xs font-medium text-gray-700">
+              Closed
+            </span>
+          </td>
+          <td class="px-4 py-3 text-gray-600">Emily Clark</td>
+          <td class="px-4 py-3 text-gray-600">Chris Lee</td>
+          <td class="whitespace-nowrap px-4 py-3 text-gray-500">Oct 10, 2026</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="flex items-center justify-between text-sm">
+    <p class="text-gray-500">Showing 1–4 of 24 tickets</p>
+
+    <div class="flex gap-2">
+      <button disabled class="rounded-md border border-gray-300 px-3 py-2 text-gray-400 disabled:cursor-not-allowed">
+        Previous
+      </button>
+      <button class="rounded-md border border-gray-300 bg-gray-900 px-3 py-2 text-white">
+        1
+      </button>
+      <button class="rounded-md border border-gray-300 px-3 py-2 text-gray-700 hover:bg-gray-50">
+        2
+      </button>
+      <button class="rounded-md border border-gray-300 px-3 py-2 text-gray-700 hover:bg-gray-50">
+        3
+      </button>
+      <button class="rounded-md border border-gray-300 px-3 py-2 text-gray-700 hover:bg-gray-50">
+        Next
+      </button>
+    </div>
+  </div>
+</div>

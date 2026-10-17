@@ -1,11 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
-import { LoginResponse, UserInfo } from '../models/login-response';
+import { LoginResponse, UserInfo } from '../../../models/login-response';
 import { catchError, Observable, of, tap } from 'rxjs';
-import { constructURL } from '../utils/Utils';
-import { API_ENDPOINTS } from '../constants/api-endpoints';
-import { CONSTANTS } from '../constants/constants';
-import { CurrentUserService } from './current-user-service';
+import { constructURL } from '../../../utils/Utils';
+import { API_ENDPOINTS } from '../../../constants/api-endpoints';
+import { CONSTANTS } from '../../../constants/constants';
+import { CurrentUserService } from '../../../core/services/current-user-service';
 
 @Injectable({
   providedIn: 'root',

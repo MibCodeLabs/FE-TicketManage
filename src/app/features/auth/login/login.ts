@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { AuthService } from '../../../services/auth-service';
-import { CurrentUserService } from '../../../services/current-user-service';
-import { LoadingService } from '../../../services/loading-service';
+import { AuthService } from '../services/auth-service';
+import { CurrentUserService } from '../../../core/services/current-user-service';
+import { LoadingService } from '../../../core/services/loading-service';
 
 @Component({
   selector: 'app-login',

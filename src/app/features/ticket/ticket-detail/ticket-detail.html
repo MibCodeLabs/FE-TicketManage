@@ -1,0 +1,341 @@
+<div class="mx-auto max-w-5xl space-y-6 p-4 sm:p-6">
+
+  <!-- Header -->
+  <div class="flex items-center justify-between gap-4">
+    <div>
+      <p class="text-sm text-gray-500">
+        Tickets
+        @if (!isNew) {
+        <span>/ #1042</span>
+        }
+        @if (isNew) {
+        <span>/ New Ticket</span>
+        }
+      </p>
+
+      <h1 class="mt-1 text-xl font-semibold text-gray-900">
+        {{ isNew ? 'Create Ticket' : (isEdit ? 'Edit Ticket' : 'Ticket Details') }}
+      </h1>
+    </div>
+
+    <button type="button" (click)="goBack()"
+      class="rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50">
+      Back to tickets
+    </button>
+  </div>
+
+  <!-- Ticket Details -->
+  <section class="space-y-4 rounded-lg border border-gray-200 p-4 sm:p-6">
+
+    <!-- Title -->
+    <div class="space-y-1">
+      <label class="text-sm font-medium text-gray-700">
+        Ticket Title
+      </label>
+
+      @if (isNew || isEdit) {
+      <input type="text" [(ngModel)]="ticket.title" placeholder="Enter ticket title"
+        class="w-full rounded-md border border-gray-300 px-3 py-2 text-sm outline-none focus:border-gray-500" />
+      }
+
+      @if (!isNew && !isEdit) {
+      <h2 class="text-lg font-semibold text-gray-900">
+        #1042 — {{ ticket.title }}
+      </h2>
+      }
+    </div>
+
+    <!-- Status Badge (view mode) -->
+    @if (!isNew && !isEdit) {
+    <div>
+      <span class="inline-block rounded-full bg-yellow-50 px-3 py-1 text-xs font-medium text-yellow-700">
+        {{ ticket.status }}
+      </span>
+    </div>
+    }
+
+    <!-- Description -->
+    <div class="space-y-2">
+      <label class="text-sm font-medium text-gray-700">
+        Description
+      </label>
+
+      <!-- TinyMCE: create/edit -->
+      @if (isNew || isEdit) {
+      <editor [(ngModel)]="ticket.description" licenseKey="gpl" [init]="{
+    base_url: '/tinymce',
+    suffix: '.min',
+    height: 300,
+    menubar: false,
+    plugins: 'lists link code table',
+    toolbar: 'undo redo | blocks | bold italic | bullist numlist | link | code'
+  }">
+      </editor>
+      }
+
+      <!-- Read-only description -->
+      @if (!isNew && !isEdit) {
+      <div class="prose max-w-none text-sm leading-6 text-gray-600" [innerHTML]="ticket.description">
+      </div>
+      }
+    </div>
+
+    <!-- Ticket Metadata -->
+    @if (!isNew) {
+    <div class="grid grid-cols-1 gap-4 border-t border-gray-100 pt-4 text-sm sm:grid-cols-2 lg:grid-cols-4">
+
+      <div>
+        <p class="text-gray-500">Issued by</p>
+        <p class="mt-1 font-medium text-gray-900">
+          {{ ticket.issuedBy }}
+        </p>
+      </div>
+
+      <div>
+        <p class="text-gray-500">Assigned to</p>
+        <p class="mt-1 font-medium text-gray-900">
+          {{ ticket.assignedTo || 'Unassigned' }}
+        </p>
+      </div>
+
+      <div>
+        <p class="text-gray-500">Created</p>
+        <p class="mt-1 font-medium text-gray-900">
+          {{ ticket.createdAt | date:'mediumDate' }}
+        </p>
+      </div>
+
+      <div>
+        <p class="text-gray-500">Expiry</p>
+        <p class="mt-1 font-medium text-gray-900">
+          {{ ticket.expiryDate ? (ticket.expiryDate | date:'mediumDate') : 'Not set' }}
+        </p>
+      </div>
+    </div>
+    }
+  </section>
+
+  <!-- Ticket Actions: create/edit -->
+  @if (isNew || isEdit) {
+  <section class="grid grid-cols-1 gap-4 rounded-lg border border-gray-200 p-4 sm:grid-cols-2 sm:p-6">
+
+    <div class="space-y-1">
+      <label class="text-sm font-medium text-gray-700">
+        Status
+      </label>
+
+      <select [(ngModel)]="ticket.status" class="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm">
+        <option value="Unassigned">Unassigned</option>
+        <option value="Open">Open</option>
+        <option value="In Progress">In Progress</option>
+        <option value="Resolved">Resolved</option>
+        <option value="Closed">Closed</option>
+      </select>
+    </div>
+
+    <div class="space-y-1">
+      <label class="text-sm font-medium text-gray-700">
+        Assign to
+      </label>
+
+      <select [(ngModel)]="ticket.assignedTo"
+        class="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm">
+        <option value="">Unassigned</option>
+        <option value="Alex Morgan">Alex Morgan</option>
+        <option value="Chris Lee">Chris Lee</option>
+        <option value="Sam Wilson">Sam Wilson</option>
+      </select>
+    </div>
+
+    <div class="space-y-1">
+      <label class="text-sm font-medium text-gray-700">
+        Expiry Date
+      </label>
+
+      <input type="date" [(ngModel)]="ticket.expiryDate"
+        class="w-full rounded-md border border-gray-300 px-3 py-2 text-sm" />
+    </div>
+  </section>
+  }
+
+  @if (!isNew && !isEdit) {
+  <section class="space-y-3 rounded-lg border border-gray-200 p-4 sm:p-6">
+
+    <h2 class="font-semibold text-gray-900">
+      Attachments ({{ attachments.length }})
+    </h2>
+
+    @for (attachment of attachments; track attachment.name) {
+    <div class="flex items-center justify-between gap-3 rounded-md border border-gray-200 p-3">
+
+      <div class="flex min-w-0 items-center gap-3">
+        <span class="text-gray-400">📎</span>
+
+        <div class="min-w-0">
+          <p class="truncate text-sm font-medium text-gray-800">
+            {{ attachment.name }}
+          </p>
+          <p class="text-xs text-gray-500">
+            {{ attachment.size }}
+          </p>
+        </div>
+      </div>
+
+      <button type="button" (click)="downloadAttachment(attachment)" class="text-sm text-gray-600 hover:text-gray-900">
+        Download
+      </button>
+    </div>
+    }
+  </section>
+  }
+
+
+  @if (isNew || isEdit) {
+  <section class="space-y-4 rounded-lg border border-gray-200 p-4 sm:p-6">
+
+    <h2 class="font-semibold text-gray-900">
+      Attachments
+    </h2>
+
+    <!-- Upload area -->
+    <label
+      class="flex cursor-pointer flex-col items-center justify-center
+             rounded-lg border-2 border-dashed border-gray-300
+             bg-gray-50 px-6 py-8 text-center
+             transition-colors duration-200
+             hover:border-blue-400 hover:bg-blue-50
+             focus-within:ring-2 focus-within:ring-blue-500"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="mb-3 h-10 w-10 text-gray-400"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        stroke-width="1.5"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M12 16V4m0 0L8 8m4-4 4 4M4 16.5v2A1.5
+             1.5 0 005.5 20h13a1.5 1.5 0 001.5-1.5v-2"
+        />
+      </svg>
+
+      <span class="text-sm font-semibold text-gray-700">
+        Click to upload files
+      </span>
+
+      <span class="mt-1 text-xs text-gray-500">
+        Select one or more attachments
+      </span>
+
+      <input
+        type="file"
+        multiple
+        (change)="onFilesSelected($event)"
+        class="sr-only"
+      />
+    </label>
+
+    <!-- Selected files -->
+    @if (selectedFiles.length) {
+      <div class="space-y-2">
+
+        <p class="text-sm font-medium text-gray-700">
+          Selected files ({{ selectedFiles.length }})
+        </p>
+
+        <ul class="space-y-2">
+          @for (file of selectedFiles; track file.name; let i = $index) {
+            <li
+              class="flex items-center justify-between gap-3
+                     rounded-md border border-gray-200 bg-white p-3
+                     transition-colors hover:bg-gray-50"
+            >
+              <div class="flex min-w-0 items-center gap-3">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5 shrink-0 text-gray-400"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M15 2H6a2 2 0 00-2 2v16a2 2
+                       0 002 2h12a2 2 0 002-2V7l-5-5z"
+                  />
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M14 2v6h6"
+                  />
+                </svg>
+
+                <span class="truncate text-sm text-gray-700">
+                  {{ file.name }}
+                </span>
+              </div>
+
+              <button
+                type="button"
+                (click)="removeSelectedFile(i)"
+                class="shrink-0 rounded-md px-3 py-1.5 text-sm
+                       font-medium text-red-600 transition-colors
+                       hover:bg-red-50 hover:text-red-800
+                       focus:outline-none focus:ring-2
+                       focus:ring-red-500 cursor-pointer"
+              >
+                Remove
+              </button>
+            </li>
+          }
+        </ul>
+      </div>
+    }
+  </section>
+}
+
+  <!-- Comments: existing tickets only -->
+  @if (!isNew) {
+  <section class="space-y-4 rounded-lg border border-gray-200 p-4 sm:p-6">
+    <app-ticket-comments></app-ticket-comments>
+  </section>
+  }
+
+  <!-- Footer Actions -->
+  <div class="flex flex-wrap justify-end gap-3">
+
+    @if (isEdit) {
+    <button type="button" (click)="cancelEdit()"
+      class="rounded-md border border-gray-300 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+      Cancel
+    </button>
+    }
+
+    @if (!isNew && !isEdit) {
+    <button type="button" (click)="startEdit()"
+      class="rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">
+      Edit Ticket
+    </button>
+    }
+
+    @if (isNew) {
+    <button type="button" (click)="createTicket()"
+      class="rounded-md bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-700">
+      Create Ticket
+    </button>
+    }
+
+    @if (isEdit) {
+    <button type="button" (click)="updateTicket()"
+      class="rounded-md bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-700">
+      Update Ticket
+    </button>
+    }
+  </div>
+
+</div>

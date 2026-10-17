@@ -1,10 +1,10 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, inject} from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
-import { CurrentUserService } from '../../services/current-user-service';
+import { CurrentUserService } from '../../core/services/current-user-service';
 import { constructURL } from '../../utils/Utils';
-import { AuthService } from '../../services/auth-service';
-import { LoadingService } from '../../services/loading-service';
 import { finalize } from 'rxjs';
+import { AuthService } from '../../features/auth/services/auth-service';
+import { LoadingService } from '../../core/services/loading-service';
 
 @Component({
   selector: 'app-navbar',
@@ -34,14 +34,11 @@ export class Navbar {
 
   logout() {
     this.loadingService.setDisplayText('Logging Out');
-    this.loadingService.setLoading(true);
 
     this.authService
       .logout()
       .pipe(
         finalize(() => {
-          this.loadingService.clearMessage();
-          this.loadingService.setLoading(false);
           this.router.navigate(["/login"])
         }),
       )
